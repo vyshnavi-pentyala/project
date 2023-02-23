@@ -185,6 +185,23 @@ def senderform():
     
     return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res='Shared')
 
+# Create a Route for Sent
+@app.route('/sent')
+def sent():
+    sql='select * from tokens'
+    cur.execute(sql)
+    result=cur.fetchall()
+    data=[]
+    for i in result:
+        if(i[1]==session['username']):
+            dummy=[]
+            dummy.apend(i[4])
+            dummy.append(i[2])
+            dummy.append(i[3])
+            data.append(dummy)
+    
+    return render_template('sent.html',dashboard_data=data,l=len(data))
+
 # Create a Rotue for Logout
 @app.route('/logout')
 def logoutPage():
