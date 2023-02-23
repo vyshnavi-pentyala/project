@@ -2,9 +2,6 @@ from flask import Flask,render_template,redirect,request,session
 import mysql.connector as mysql
 import json
 
-app=Flask(__name__)
-app.secret_key='ms17kits'
-
 db=mysql.connect(
     host='localhost',
     user='root',
@@ -16,6 +13,7 @@ cur=db.cursor()
 
 # Create APP to launch Web Server
 app=Flask(__name__)
+app.secret_key='ms17kits'
 
 # Create a Route to Register
 @app.route('/')
