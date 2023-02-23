@@ -29,7 +29,11 @@
 
                             <div class="form-group">
                                 <label>Select File to secure:</label> <br/>
-                                <input type="textarea" class="form-control" name="data" placeholder="Enter Data" required="">
+                                <select class="form-control" id="filename" name='filename' required="">
+                                    {%for i in range(0, l1)%}
+                                        <option>{{dashboard_data1[i]}}</option>
+                                    {%endfor%}
+                                </select>
                             </div>
                         
                             <div class="form-group">
@@ -42,7 +46,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn-primary" type="submit">Send Data</button>
+                                <button class="btn-primary" type="submit">Send File</button>
                             </div>
                         </form>
                         <center>

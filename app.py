@@ -110,7 +110,12 @@ def uploadFile():
 # Create a Route for Sender
 @app.route('/sender')
 def senderPage():
-    return render_template('sender.html')
+    if session['username'] in os.listdir():
+        k=os.listdir(session['username'])
+        print(k)
+        data=[]
+        data1=[]
+    return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data)
 
 if (__name__=="__main__"):
     app.run(debug=True,port=5001)
