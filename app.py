@@ -113,13 +113,13 @@ def senderPage():
     if session['username'] in os.listdir():
         k=os.listdir(session['username'])
         print(k)
-        data=[]
         data1=[]
         for i in range(len(k)):
             dummy=[]
             dummy.append(i)
             data1.append(dummy)
     
+    data=[]
     sql='select * from register'
     cur.execute(sql)
     result=cur.fetchall()
