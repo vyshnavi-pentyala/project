@@ -27,6 +27,13 @@ def signupform():
     password=request.form['password']
     print(username,password)
     try:
+        sql='select * from register'
+        cur.execute(sql)
+        result=cur.fetchall()
+        for i in result:
+            if username==i[1]:
+                return render_template('index.html',res='User Exist')
+                
         sql='INSERT INTO register (username,password) VALUES (%s,%s)'
         values=(username,password)
         cur.execute(sql,values)
@@ -45,11 +52,11 @@ def loginform():
     sql='select * from register'
     cur.execute(sql)
     result=cur.fetchall()
-    data=[]
     for i in result:
-        data.append(i)
-    print (json.dumps(data))
-    return render_template('index.html',res='Login Valid')
+        if username==i[1] and password==i[2]:
+            return render_template('index.html',res='Login Valid')
+    
+    return render_template('index.html',err='Invalid credentials')
 
 
 if (__name__=="__main__"):
