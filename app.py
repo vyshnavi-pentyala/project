@@ -195,7 +195,7 @@ def sent():
     for i in result:
         if(i[1]==session['username']):
             dummy=[]
-            dummy.apend(i[4])
+            dummy.append(i[4])
             dummy.append(i[2])
             dummy.append(i[3])
             data.append(dummy)
