@@ -3,7 +3,7 @@ import mysql.connector as mysql
 import json
 
 app=Flask(__name__)
-app.secret_key='project17'
+app.secret_key='ms17kits'
 
 db=mysql.connect(
     host='localhost',
@@ -57,7 +57,7 @@ def loginform():
     for i in result:
         if username==i[1] and password==i[2]:
             session['username']=username
-            return render_template('index.html',res='Login Valid')
+            return redirect('/dashboard')
     
     return render_template('index.html',res1='Invalid credentials')
 
