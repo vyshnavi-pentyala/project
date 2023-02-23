@@ -130,6 +130,61 @@ def senderPage():
             data.append(dummy)
     return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1)
 
+# Create a Route for senderform
+@app.route('/senderform',methods=['post'])
+def senderform():
+    filename=session['username']+'/'+request.form['filename']
+    filehash=hash_file(filename)
+    receiver=request.form['receiver']
+    print(filename,receiver)
+    sql='select * from tokens'
+    cur.execute(sql)
+    result=cur.fetchall()
+    for i in result:
+        if(i[4]==receiver and i[3]==filehash):
+            if session['username'] in os.listdir():
+                k=os.listdir(session['username'])
+                print(k)
+                data1=[]
+                for i in range(len(k)):
+                    dummy=[]
+                    dummy.append(k[i])
+                    data1.append(dummy)
+            data=[]
+            sql='select * from register'
+            cur.execute(sql)
+            result=cur.fetchall()
+            for i in result:
+                if(i[1]!=session['username']):
+                    dummy=[]
+                    dummy.append(i[1])
+                    data.append(dummy)
+            return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res1='Already Shared')
+    
+    sql='INSERT INTO tokens (username,filename,filehash,receiver) VALUES (%s,%s,%s,%s)'
+    values=(session['username'],filename,filehash,receiver)
+    cur.execute(sql,values)
+    db.commit()
+    if session['username'] in os.listdir():
+        k=os.listdir(session['username'])
+        print(k)
+        data1=[]
+        for i in range(len(k)):
+            dummy=[]
+            dummy.append(k[i])
+            data1.append(dummy)
+    data=[]
+    sql='select * from register'
+    cur.execute(sql)
+    result=cur.fetchall()
+    for i in result:
+        if(i[1]!=session['username']):
+            dummy=[]
+            dummy.append(i[1])
+            data.append(dummy)
+    
+    return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res='Shared')
+
 # Create a Rotue for Logout
 @app.route('/logout')
 def logoutPage():
