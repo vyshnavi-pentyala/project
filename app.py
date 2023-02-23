@@ -197,7 +197,7 @@ def sent():
             dummy=[]
             dummy.append(i[4])
             dummy.append(i[2])
-            dummy.append(i[3])
+            dummy.append("*********************************") #hashcode is here
             data.append(dummy)
     
     return render_template('sent.html',dashboard_data=data,l=len(data))
@@ -214,7 +214,7 @@ def receiver():
             dummy=[]
             dummy.append(i[1])
             dummy.append(i[2])
-            dummy.append(i[3])
+            dummy.append("*********************************") # hash code is here
             if(i[3]==i[5]):
                 dummy.append('Safe')
             else:
