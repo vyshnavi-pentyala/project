@@ -3,6 +3,8 @@ import mysql.connector as mysql
 import json
 
 app=Flask(__name__)
+app.secret_key='project17'
+
 db=mysql.connect(
     host='localhost',
     user='root',
@@ -54,10 +56,15 @@ def loginform():
     result=cur.fetchall()
     for i in result:
         if username==i[1] and password==i[2]:
+            session['username']=username
             return render_template('index.html',res='Login Valid')
     
     return render_template('index.html',res1='Invalid credentials')
 
+# Create a Route for Dashboard
+@app.route('/dashboard')
+def dashboardPage():
+    return render_template('dashboard.html')
 
 if (__name__=="__main__"):
     app.run(debug=True,port=5001)
