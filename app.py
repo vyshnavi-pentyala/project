@@ -134,7 +134,7 @@ def senderPage():
 # Create a Route for senderform
 @app.route('/senderform',methods=['post'])
 def senderform():
-    filename=session['username']+'/'+request.form['filename']
+    filename=app.config["UPLOAD_FOLDER"]+'/'+session['username']+'/'+request.form['filename']
     filehash=hash_file(filename)
     receiver=request.form['receiver']
     print(filename,receiver)
