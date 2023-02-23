@@ -32,15 +32,15 @@ def signupform():
         result=cur.fetchall()
         for i in result:
             if username==i[1]:
-                return render_template('index.html',res='User Exist')
-                
+                return render_template('index.html',res1='User Exist')
+
         sql='INSERT INTO register (username,password) VALUES (%s,%s)'
         values=(username,password)
         cur.execute(sql,values)
         db.commit()
         return render_template('index.html',res='Registered Successfully')
     except:
-        return render_template('index.html',err='Register Failed')
+        return render_template('index.html',res1='Register Failed')
 
 # Create a Route for Login Form
 @app.route('/loginform',methods=['post'])
@@ -56,7 +56,7 @@ def loginform():
         if username==i[1] and password==i[2]:
             return render_template('index.html',res='Login Valid')
     
-    return render_template('index.html',err='Invalid credentials')
+    return render_template('index.html',res1='Invalid credentials')
 
 
 if (__name__=="__main__"):
