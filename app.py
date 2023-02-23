@@ -116,7 +116,18 @@ def senderPage():
         data=[]
         data1=[]
         for i in range(len(k)):
-            pass
+            dummy=[]
+            dummy.append(i)
+            data1.append(dummy)
+    
+    sql='select * from register'
+    cur.execute(sql)
+    result=cur.fetchall()
+    for i in result:
+        if(i[1]!=session['username']):
+            dummy=[]
+            dummy.append(i[1])
+            data.append(dummy)
     return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data)
 
 # Create a Rotue for Logout
@@ -124,6 +135,6 @@ def senderPage():
 def logoutPage():
     session['username']=None
     return redirect('/')
-    
+
 if (__name__=="__main__"):
     app.run(debug=True,port=5001)
