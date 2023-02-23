@@ -213,8 +213,8 @@ def receiver():
     for i in result:
         if(i[4]==session['username']):
             dummy=[]
-            dummy.append(i[1][8:])
-            dummy.append(i[2])
+            dummy.append(i[1])
+            dummy.append(i[2][8:])
             dummy.append("*********************************") # hash code is here
             if(i[3]==i[5]):
                 dummy.append('Safe')
