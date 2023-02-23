@@ -137,7 +137,7 @@ def senderform():
     filehash=hash_file(filename)
     receiver=request.form['receiver']
     print(filename,receiver)
-    sql='select * from tokens'
+    sql='select * from tokens1'
     cur.execute(sql)
     result=cur.fetchall()
     for i in result:
@@ -161,7 +161,7 @@ def senderform():
                     data.append(dummy)
             return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res1='Already Shared')
     
-    sql='INSERT INTO tokens (username,filename,filehash,receivers,rx_hash) VALUES (%s,%s,%s,%s,%s)'
+    sql='INSERT INTO tokens1 (username,filename,filehash,receivers,rx_hash) VALUES (%s,%s,%s,%s,%s)'
     values=(session['username'],filename,filehash,receiver,filehash)
     cur.execute(sql,values)
     db.commit()
@@ -188,7 +188,7 @@ def senderform():
 # Create a Route for Sent
 @app.route('/sent')
 def sent():
-    sql='select * from tokens'
+    sql='select * from tokens1'
     cur.execute(sql)
     result=cur.fetchall()
     data=[]
@@ -205,7 +205,7 @@ def sent():
 # Create a Route for Inbox
 @app.route('/receiver')
 def receiver():
-    sql='select * from tokens'
+    sql='select * from tokens1'
     cur.execute(sql)
     result=cur.fetchall()
     data=[]
