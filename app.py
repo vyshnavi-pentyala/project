@@ -161,7 +161,7 @@ def senderform():
                     data.append(dummy)
             return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res1='Already Shared')
     
-    sql='INSERT INTO tokens (username,filename,filehash,receiver) VALUES (%s,%s,%s,%s)'
+    sql='INSERT INTO tokens (username,filename,filehash,receivers) VALUES (%s,%s,%s,%s)'
     values=(session['username'],filename,filehash,receiver)
     cur.execute(sql,values)
     db.commit()
