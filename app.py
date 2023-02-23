@@ -112,7 +112,7 @@ def uploadFile():
 @app.route('/sender')
 def senderPage():
     if session['username'] in os.listdir(app.config["UPLOAD_FOLDER"]):
-        k=os.listdir(session['username'])
+        k=os.listdir(os.path.join(app.config["UPLOAD_FOLDER"],session['username']))
         print(k)
         data1=[]
         for i in range(len(k)):
