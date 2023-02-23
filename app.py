@@ -37,6 +37,7 @@ cur=db.cursor()
 # Create APP to launch Web Server
 app=Flask(__name__)
 app.secret_key='ms17kits'
+app.config["UPLOAD_FOLDER"] = "static/uploads/"
 
 # Create a Route to Register
 @app.route('/')
@@ -97,12 +98,12 @@ def uploadPage():
 def uploadFile():
     doc=request.files['chooseFile']
     if session['username'] not in os.listdir():
-        os.mkdir(session['username'])
+        os.mkdir(os.path.join(app.config["UPLOAD_FOLDER"],session['username']))
     doc1=secure_filename(doc.filename)
-    doc.save(session['username']+'/'+doc1)
-    hashvalue=hash_file(session['username']+'/'+doc1)
+    doc.save(os.path.join(app.config["UPLOAD_FOLDER"],session['username'])+'/'+doc1)
+    hashvalue=hash_file(os.path.join(app.config["UPLOAD_FOLDER"],session['username'])+'/'+doc1)
     sql='INSERT INTO filesdata (username,filename,hash) VALUES (%s,%s,%s)'
-    values=(session['username'],session['username']+'/'+doc1,hashvalue)
+    values=(session['username'],os.path.join(app.config["UPLOAD_FOLDER"],session['username'])+'/'+doc1,hashvalue)
     cur.execute(sql,values)
     db.commit()
     return render_template('upload.html',res='File Uploaded')
@@ -165,8 +166,8 @@ def senderform():
     values=(session['username'],filename,filehash,receiver,filehash)
     cur.execute(sql,values)
     db.commit()
-    if session['username'] in os.listdir():
-        k=os.listdir(session['username'])
+    if os.path.join(app.config["UPLOAD_FOLDER"],session['username']) in os.listdir():
+        k=os.listdir(os.path.join(app.config["UPLOAD_FOLDER"],session['username']))
         print(k)
         data1=[]
         for i in range(len(k)):
