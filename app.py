@@ -143,8 +143,8 @@ def senderform():
     result=cur.fetchall()
     for i in result:
         if(i[4]==receiver and i[3]==filehash):
-            if session['username'] in os.listdir():
-                k=os.listdir(session['username'])
+            if session['username'] in os.listdir(app.config["UPLOAD_FOLDER"]):
+                k=os.listdir(os.path.join(app.config["UPLOAD_FOLDER"],session['username']))
                 print(k)
                 data1=[]
                 for i in range(len(k)):
