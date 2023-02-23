@@ -116,7 +116,7 @@ def senderPage():
         data1=[]
         for i in range(len(k)):
             dummy=[]
-            dummy.append(i)
+            dummy.append(k[i])
             data1.append(dummy)
     
     data=[]
