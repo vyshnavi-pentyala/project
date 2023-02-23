@@ -2,7 +2,27 @@ from flask import Flask,render_template,redirect,request,session
 import mysql.connector as mysql
 import os
 from werkzeug.utils import secure_filename
+import hashlib
 
+def hash_file(filename):
+   """"This function returns the SHA-1 hash
+   of the file passed into it"""
+
+   # make a hash object
+   h = hashlib.sha1()
+
+   # open file for reading in binary mode
+   with open(filename,'rb') as file:
+
+       # loop till the end of the file
+       chunk = 0
+       while chunk != b'':
+           # read only 1024 bytes at a time
+           chunk = file.read(1024)
+           h.update(chunk)
+
+   # return the hex representation of digest
+   return h.hexdigest()
 
 
 db=mysql.connect(
@@ -80,6 +100,11 @@ def uploadFile():
         os.mkdir(session['username'])
     doc1=secure_filename(doc.filename)
     doc.save(session['username']+'/'+doc1)
+    hashvalue=hash_file(session['username']+'/'+doc1)
+    sql='INSERT INTO filesdata (username,filename,hash) VALUES (%s,%s,%s)'
+    values=(session['username'],session['username']+'/'+doc1,hashvalue)
+    cur.execute(sql,values)
+    db.commit()
     return render_template('upload.html',res='File Uploaded')
 
 # Create a Route for Sender
