@@ -111,7 +111,7 @@ def uploadFile():
 # Create a Route for Sender
 @app.route('/sender')
 def senderPage():
-    if session['username'] in os.listdir():
+    if session['username'] in os.listdir(app.config["UPLOAD_FOLDER"]):
         k=os.listdir(session['username'])
         print(k)
         data1=[]
