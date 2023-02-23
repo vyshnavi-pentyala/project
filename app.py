@@ -128,7 +128,7 @@ def senderPage():
             dummy=[]
             dummy.append(i[1])
             data.append(dummy)
-    return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data)
+    return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1)
 
 # Create a Rotue for Logout
 @app.route('/logout')

@@ -30,7 +30,7 @@
                                 <label>Select File to secure:</label> <br/>
                                 <select class="form-control" id="filename" name='filename' required="">
                                     {%for i in range(0, l1)%}
-                                        <option>{{dashboard_data1[i]}}</option>
+                                        <option>{{dashboard_data1[i][0]}}</option>
                                     {%endfor%}
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                                 <label>Select to whom you want to transfer</label><br/>
                                 <select class="form-control" id="receiver" name='receiver' required="">
                                     {%for i in range(0, l)%}
-                                        <option>{{dashboard_data[i]}}</option>
+                                        <option>{{dashboard_data[i][0]}}</option>
                                     {%endfor%}
                                 </select>
                             </div>
