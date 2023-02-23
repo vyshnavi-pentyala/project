@@ -161,8 +161,8 @@ def senderform():
                     data.append(dummy)
             return render_template('sender.html',l=len(data),l1=len(data1),dashboard_data=data,dashboard_data1=data1,res1='Already Shared')
     
-    sql='INSERT INTO tokens (username,filename,filehash,receivers) VALUES (%s,%s,%s,%s)'
-    values=(session['username'],filename,filehash,receiver)
+    sql='INSERT INTO tokens (username,filename,filehash,receivers,rx_hash) VALUES (%s,%s,%s,%s,%s)'
+    values=(session['username'],filename,filehash,receiver,filehash)
     cur.execute(sql,values)
     db.commit()
     if session['username'] in os.listdir():
@@ -201,6 +201,27 @@ def sent():
             data.append(dummy)
     
     return render_template('sent.html',dashboard_data=data,l=len(data))
+
+# Create a Route for Inbox
+@app.route('/receiver')
+def receiver():
+    sql='select * from tokens'
+    cur.execute(sql)
+    result=cur.fetchall()
+    data=[]
+    for i in result:
+        if(i[4]==session['username']):
+            dummy=[]
+            dummy.append(i[1])
+            dummy.append(i[2])
+            dummy.append(i[3])
+            if(i[3]==i[5]):
+                dummy.append('Safe')
+            else:
+                dummy.append('Danger')
+            data.append(dummy)
+
+    return render_template('inbox.html',dashboard_data=data,l=len(data))
 
 # Create a Rotue for Logout
 @app.route('/logout')
