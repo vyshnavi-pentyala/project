@@ -166,7 +166,7 @@ def senderform():
     values=(session['username'],filename,filehash,receiver,filehash)
     cur.execute(sql,values)
     db.commit()
-    if os.path.join(app.config["UPLOAD_FOLDER"],session['username']) in os.listdir():
+    if session['username'] in os.listdir(app.config["UPLOAD_FOLDER"]):
         k=os.listdir(os.path.join(app.config["UPLOAD_FOLDER"],session['username']))
         print(k)
         data1=[]
